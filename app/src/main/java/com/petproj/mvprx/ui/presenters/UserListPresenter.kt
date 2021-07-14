@@ -7,7 +7,7 @@ class UserListPresenter(private val view: IUserList) {
     var entries = mutableListOf<User>()
 
     fun refreshList() {
-        entries.addAll(listOf())
+        entries.addAll(listOf(User(name = "Cass"),User(name = "John"),User(name = "Otto")))
         view.updateUserList(entries)
     }
 
