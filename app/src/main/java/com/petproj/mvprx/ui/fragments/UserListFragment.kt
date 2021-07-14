@@ -41,11 +41,13 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
 
 
     override fun showProgressBar() {
-
+        rvUsers.visibility = View.GONE
+        progressbar.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-
+        progressbar.visibility = View.GONE
+        rvUsers.visibility = View.VISIBLE
     }
 
 }
