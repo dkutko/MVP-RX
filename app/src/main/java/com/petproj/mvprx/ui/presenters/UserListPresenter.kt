@@ -1,19 +1,19 @@
 package com.petproj.mvprx.ui.presenters
 
-import com.petproj.mvprx.entity.Entry
+import com.petproj.mvprx.entity.User
 
-class UserListPresenter(val view: IUserList) {
+class UserListPresenter(private val view: IUserList) {
 
-    var entries = mutableListOf<Entry>()
+    var entries = mutableListOf<User>()
 
     fun refreshList() {
-        entries.addAll(listOf(Entry("Data"), Entry("Main"), Entry("Sup")))
+        entries.addAll(listOf())
         view.updateUserList(entries)
     }
 
 
     interface IUserList {
-        fun updateUserList(list: MutableList<Entry>)
+        fun updateUserList(list: MutableList<User>)
         fun showProgressBar()
         fun hideProgressBar()
     }

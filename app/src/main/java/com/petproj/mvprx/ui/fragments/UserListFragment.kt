@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.petproj.mvprx.R
 import com.petproj.mvprx.adapter.entry
-import com.petproj.mvprx.entity.Entry
+import com.petproj.mvprx.entity.User
 import com.petproj.mvprx.ui.presenters.UserListPresenter
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
@@ -28,8 +28,8 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
         presenter.refreshList()
     }
 
-    override fun updateUserList(list: MutableList<Entry>) {
-        main_activity_raffle_rv.withModels {
+    override fun updateUserList(list: MutableList<User>) {
+        rvUsers.withModels {
             list.forEach {
                 entry {
                     id(hashCode())
