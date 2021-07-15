@@ -11,6 +11,9 @@ kapt {
 }
 
 android {
+    buildFeatures {
+        dataBinding true
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -37,9 +40,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
@@ -54,6 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+
     // Fragment Navigation
     def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -62,8 +63,12 @@ dependencies {
     // Epoxy
     def epoxyVersion = "4.6.2"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
     kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    //RX
+    implementation 'com.github.ReactiveX:RxKotlin:3.x-SNAPSHOT'
 }

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.user_item.view.*
 abstract class UserModel: EpoxyModelWithHolder<UserModel.UserHolder>() {
 
     @EpoxyAttribute
-    var name: CharSequence? = ""
+    var name: String? = ""
     @EpoxyAttribute
     var about: String? = ""
 
