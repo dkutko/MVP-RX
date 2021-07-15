@@ -2,4 +2,9 @@
     <string name="app_name">MVP+RX</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="spinner_title">Spinner</string>
+    <string-array name="sort_by">
+        <item>ASC</item>
+        <item>DESC</item>
+    </string-array>
 </resources>

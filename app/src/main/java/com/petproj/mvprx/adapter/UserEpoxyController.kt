@@ -1,18 +1,21 @@
 package com.petproj.mvprx.adapter
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.airbnb.epoxy.glidePreloader
 import com.petproj.mvprx.entity.User
+import com.petproj.mvprx.inter.IOnItemSelected
 import com.petproj.mvprx.title
 
 
-class UserEpoxyController : TypedEpoxyController<MutableList<User>>() {
-
+class UserEpoxyController constructor(val iOnItemSelected: IOnItemSelected) : TypedEpoxyController<MutableList<User>>() {
     override fun buildModels(data: MutableList<User>) {
         title {
             id("id")
             title("All Users")
             spanSizeOverride { totalSpanCount, position, itemCount -> totalSpanCount / 1 }
+        }
+
+        spinner(iOnItemSelected) {
+            id("id")
         }
 
         data.forEach {

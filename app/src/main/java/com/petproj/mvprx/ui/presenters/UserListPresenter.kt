@@ -16,7 +16,6 @@ class UserListPresenter(private val view: IUserList) {
     fun getUsers(sortBy: SortBy): Observable<MutableList<User>> {
         return Observable.create<MutableList<User>> { sb ->
             //Transaction or network imitation
-            Thread.sleep(1000)
             val users = SharedPrefs.getAllUsers()
             val gson = Gson()
             listOfUsers = gson.fromJson(users, object : TypeToken<MutableList<User?>?>() {}.type)

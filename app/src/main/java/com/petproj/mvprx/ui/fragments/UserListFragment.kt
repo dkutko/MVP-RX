@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.petproj.mvprx.R
 import com.petproj.mvprx.adapter.UserEpoxyController
 import com.petproj.mvprx.const.SortBy
+import com.petproj.mvprx.inter.IOnItemSelected
 import com.petproj.mvprx.ui.presenters.UserListPresenter
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-class UserListFragment : Fragment(), UserListPresenter.IUserList {
+class UserListFragment : Fragment(), UserListPresenter.IUserList, IOnItemSelected {
 
     private var presenter: UserListPresenter = UserListPresenter(this)
-    private val epoxyController = UserEpoxyController()
+    private val epoxyController = UserEpoxyController(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +34,8 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
     }
 
     private fun getUsers(sortBy: SortBy) {
-        presenter.getUsers(sortBy)
-            .subscribeOn(Schedulers.io())
+        showProgressBar()
+        presenter.getUsers(sortBy).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { usersList ->
                 epoxyController.setData(usersList)
@@ -62,4 +63,10 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
         rvUsers.visibility = View.VISIBLE
     }
 
+    override fun onChange(item: Int) {
+        if (item == 0)
+            getUsers(SortBy.ASCENDING)
+        else
+            getUsers(SortBy.DESCENDING)
+    }
 }
