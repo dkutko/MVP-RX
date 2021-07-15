@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.petproj.mvprx.R
 import com.petproj.mvprx.adapter.UserEpoxyController
+import com.petproj.mvprx.const.SortBy
 import com.petproj.mvprx.ui.presenters.UserListPresenter
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import rx.android.schedulers.AndroidSchedulers
@@ -28,11 +29,13 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        getUsers()
+        getUsers(SortBy.ASCENDING)
     }
 
-    private fun getUsers() {
-        presenter.getUsers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    private fun getUsers(sortBy: SortBy) {
+        presenter.getUsers(sortBy)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe { usersList ->
                 epoxyController.setData(usersList)
                 hideProgressBar()
