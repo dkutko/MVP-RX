@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
 import com.petproj.mvprx.R
 import com.petproj.mvprx.adapter.UserEpoxyController
-import com.petproj.mvprx.entity.User
 import com.petproj.mvprx.ui.presenters.UserListPresenter
 import kotlinx.android.synthetic.main.fragment_user_list.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class UserListFragment : Fragment(), UserListPresenter.IUserList {
 
@@ -22,16 +22,23 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
-        return view
-
+        return inflater.inflate(R.layout.fragment_user_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        presenter.refreshList()
+        getUsers()
     }
+
+    private fun getUsers() {
+        presenter.getUsers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe { usersList ->
+                epoxyController.setData(usersList)
+                hideProgressBar()
+            }
+    }
+
 
     private fun initRecyclerView() {
         val spanCount = 2
@@ -39,13 +46,8 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
         epoxyController.spanCount = spanCount
         layoutManager.spanSizeLookup = epoxyController.spanSizeLookup
         rvUsers.layoutManager = layoutManager
-    }
-
-    override fun updateUserList(list: MutableList<User>) {
-        epoxyController.setData(list)
         rvUsers.setController(epoxyController)
     }
-
 
     override fun showProgressBar() {
         rvUsers.visibility = View.GONE
