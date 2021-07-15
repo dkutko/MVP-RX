@@ -2,19 +2,25 @@ package com.petproj.mvprx.ui.presenters
 
 import android.os.Handler
 import android.os.Looper
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.petproj.mvprx.entity.User
+import com.petproj.mvprx.utils.SharedPrefs
+
 
 class UserListPresenter(private val view: IUserList) {
 
-    var entries = mutableListOf<User>()
+    private var listOfUsers = mutableListOf<User>()
 
     fun refreshList() {
-        entries.addAll(listOf(User(name = "Cass"), User(name = "John"), User(name = "Otto")))
+        val users = SharedPrefs.getAllUsers()
+        val gson = Gson()
+        listOfUsers = gson.fromJson(users, object : TypeToken<MutableList<User?>?>() {}.type)
         view.showProgressBar()
 
         //Delay 2 sec
         Handler(Looper.getMainLooper()).postDelayed({
-            view.updateUserList(entries)
+            view.updateUserList(listOfUsers)
             view.hideProgressBar()
         }, 2000)
     }

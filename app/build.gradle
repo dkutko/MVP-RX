@@ -63,4 +63,7 @@ dependencies {
     def epoxyVersion = "4.6.2"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.7'
 }

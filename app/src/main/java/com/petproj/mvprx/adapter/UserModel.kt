@@ -8,24 +8,26 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.petproj.mvprx.R
-import kotlinx.android.synthetic.main.entry_item.view.*
+import kotlinx.android.synthetic.main.user_item.view.*
 
 @SuppressLint("NonConstantResourceId")
-@EpoxyModelClass(layout = R.layout.entry_item)
-abstract class EntryModel: EpoxyModelWithHolder<EntryModel.EntryHolder>() {
+@EpoxyModelClass(layout = R.layout.user_item)
+abstract class UserModel: EpoxyModelWithHolder<UserModel.UserHolder>() {
 
     @EpoxyAttribute
     var name: CharSequence? = ""
+    @EpoxyAttribute
+    var about: String? = ""
 
-    override fun bind(holder: EntryHolder) {
+    override fun bind(holder: UserHolder) {
         holder.entryName.text = name
     }
 
-    inner class EntryHolder: EpoxyHolder() {
+    inner class UserHolder: EpoxyHolder() {
         lateinit var entryName: TextView
 
         override fun bindView(itemView: View) {
-            entryName = itemView.entry_name_item
+            entryName = itemView.userName
         }
     }
 }
