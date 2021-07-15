@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.petproj.mvprx.R
-import com.petproj.mvprx.adapter.user
 import com.petproj.mvprx.entity.User
 import com.petproj.mvprx.title
 import com.petproj.mvprx.ui.presenters.UserListPresenter
+import com.petproj.mvprx.user
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
 class UserListFragment : Fragment(), UserListPresenter.IUserList {
@@ -37,10 +37,9 @@ class UserListFragment : Fragment(), UserListPresenter.IUserList {
                 title("All Users")
             }
             list.forEach {
-                user{
-                    id(hashCode())
+                user {
+                    id(it._id)
                     name(it.name)
-                    about(it.about)
                 }
             }
         }
