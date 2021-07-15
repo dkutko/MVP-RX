@@ -22,7 +22,7 @@ class UserListPresenter(private val view: IUserList) {
         Handler(Looper.getMainLooper()).postDelayed({
             view.updateUserList(listOfUsers)
             view.hideProgressBar()
-        }, 2000)
+        }, 1000)
     }
 
 
